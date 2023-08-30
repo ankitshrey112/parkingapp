@@ -14,6 +14,9 @@ class Carpark < ActiveRecord::Migration[7.0]
       t.string :car_park_basement
 
       t.timestamps
+
+      t.index [:carpark_number], name: 'index_carparks_on_carpark_number', unique: true
+      t.index [:latitude, :latitude], name: 'index_carparks_on_carpark_number'
     end
   end
 end
