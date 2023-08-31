@@ -40,15 +40,15 @@ class IngestCarparkInformation < ActiveInteraction::Base
     {
       carpark_number: record[:car_park_no].to_s,
       address: record[:address].to_s,
-      latitude: record[:x_coord].to_f,
-      longitude: record[:y_coord].to_f,
+      latitude: record[:x_coord].to_f.round(4),
+      longitude: record[:y_coord].to_f.round(4),
       carpark_type: record[:carpark_type].to_s,
       type_of_parking_system: record[:type_of_parking_system].to_s,
       short_term_parking: record[:short_term_parking].to_s,
       free_parking: record[:free_parking].to_s,
       night_parking: record[:night_parking].to_s,
       car_park_decks: record[:car_park_decks].to_i,
-      gantry_height: record[:gantry_height].to_f,
+      gantry_height: record[:gantry_height].to_f.round(4),
       car_park_basement: record[:car_park_basement].to_s,
     }
   end

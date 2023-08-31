@@ -68,6 +68,8 @@ gem 'active_interaction', '~> 5.3'
 
 gem 'rest-client'
 
+gem 'pry', '~> 0.14.2'
+
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
