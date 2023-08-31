@@ -6,18 +6,18 @@ RSpec.describe GetNearestAvailabilities do
       let(:attributes) { { latitude: 1.37326, longitude: 103.899, per_page: 10 } }
 
       it 'returns the correct number of carparks' do
-        result = described_class.run(attributes)
-        expect(result['list'].length).to eq(10)
+        result = described_class.run!(attributes)
+        expect(result[:list].length).to eq(10)
       end
       
       it 'checks order of carparks sorted by distance' do
-        result = described_class.run(attributes)
+        result = described_class.run!(attributes)
         
-        result['list'].each_with_index do |carpark, ind|
+        result[:list].each_with_index do |carpark, ind|
           next if ind == 0
 
-          expected = result['list'][ind - 1]['distance']
-          expect(carpark['distance']).to be >= (expected)
+          expected = result[:list][ind - 1][:distance]
+          expect(carpark[:distance]).to be >= (expected)
         end
       end
     end
@@ -27,28 +27,28 @@ RSpec.describe GetNearestAvailabilities do
 
       it 'latitude and longitude both missing' do
         result = described_class.run(attributes)
-        expect(result).not_to be_valid
+        expect(result.errors).to be_present
       end
 
       let(:attributes) { { latitude: 1.37326 } }
 
       it 'longitude missing' do
         result = described_class.run(attributes)
-        expect(result).not_to be_valid
+        expect(result.errors).to be_present
       end
 
       let(:attributes) { { longitude: 1.37326 } }
 
       it 'latitude missing' do
         result = described_class.run(attributes)
-        expect(result).not_to be_valid
+        expect(result.errors).to be_present
       end
 
       let(:attributes) { { longitude: '1.37326', longitude: 103.899 } }
 
       it 'incorrect input tye for longitude' do
         result = described_class.run(attributes)
-        expect(result).not_to be_valid
+        expect(result.errors).to be_present
       end
     end
   end
