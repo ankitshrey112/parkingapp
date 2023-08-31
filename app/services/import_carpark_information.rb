@@ -1,6 +1,6 @@
 require 'csv'
 
-class IngestCarparkInformation < ActiveInteraction::Base
+class ImportCarparkInformation < ActiveInteraction::Base
   def execute
     delete_carparks
 
