@@ -1,6 +1,6 @@
 class Carpark < ActiveRecord::Migration[7.0]
   def self.up
-    create_table :carparks, id: :binary, limit: 16 do |t|
+    create_table :carparks do |t|
       t.string :carpark_number, null: false
       t.string :address
       t.float :latitude, null: false
