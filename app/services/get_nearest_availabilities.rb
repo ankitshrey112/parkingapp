@@ -27,7 +27,7 @@ class GetNearestAvailabilities < ActiveInteraction::Base
   def get_pagination_data(query)
     {
       current_page: self.page,
-      current_count: self.per_page
+      current_count: self.per_page,
       total_pages: query.total_pages,
       total_count: query.total_count,
     }
