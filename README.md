@@ -1,12 +1,12 @@
 
-											Ruby on Rails Carpark Availability API
+Ruby on Rails Carpark Availability API
 
 
 The "Ruby on Rails Carpark Availability API" is a robust web application built using the Ruby on Rails framework. Its primary purpose is to deliver a powerful and accurate API endpoint that facilitates the retrieval of real-time carpark availability data in Singapore. The API is designed to provide users with the most up-to-date information about available parking slots, based on the latitude and longitude coordinates provided by the user.
 
 
 
-														Features
+Features
 
 - Live Carpark Availability: The API is meticulously designed to deliver real-time carpark availability data, ensuring that users receive the latest information about parking slot availability.
 
@@ -15,7 +15,7 @@ The "Ruby on Rails Carpark Availability API" is a robust web application built u
 - Data Sourced from HDB: The API fetches its data from the Housing & Development Board (HDB) website, a reliable and authoritative source for carpark information in Singapore.
 
 
-														How It Works
+How It Works
 
 - User's Location Coordinates: Users input their current location's latitude and longitude coordinates through the API's intuitive request structure.
 
@@ -25,7 +25,7 @@ The "Ruby on Rails Carpark Availability API" is a robust web application built u
 
 - Response Formation: The API constructs a well-structured JSON response containing the list of nearest carparks along with their respective availability information.
 
-													Setup Instructions
+Setup Instructions
 
 
 1. Install Homebrew (if not already installed):
@@ -67,7 +67,7 @@ The "Ruby on Rails Carpark Availability API" is a robust web application built u
 13.	Access the API:
 	Make API requests to http://localhost:3000/carparks/nearest?latitude=1.37326&longitude=103.897&page=1&per_page=10
 
-												Approach
+Approach
 
 
 Models:
