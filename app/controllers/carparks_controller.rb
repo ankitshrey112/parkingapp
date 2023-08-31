@@ -1,11 +1,9 @@
 class CarparksController < ApplicationController
   def get_nearest_availabilities
-     @service_response = GetNearestAvailabilities.new.call(params)
+     service_response = GetNearestAvailabilities.run(params.as_json.map(&:deep_symbolize_keys))
 
-     render json: @service_response, status: :ok
-  end
+     result = service_response.result
 
-  def build_response(service_response)
-
+     render json: result, status: :ok
   end
 end

@@ -1,8 +1,10 @@
-class GetNearestAvailabilities
-  def self.call(latitude, longitude)
+class GetNearestAvailabilities < ActiveInteraction::Base
+  float :latitide
+  float :longitude
 
+  def execute
     return {
-      nearest: []
+      list: []
     }
   end
 end
