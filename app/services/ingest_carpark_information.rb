@@ -2,6 +2,8 @@ require 'csv'
 
 class IngestCarparkInformation < ActiveInteraction::Base
   def execute
+    delete_carparks
+
     write_records_to_db
 
     return {
@@ -20,6 +22,10 @@ class IngestCarparkInformation < ActiveInteraction::Base
       @total_lines += 1
       puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #{@total_lines}"
     end
+  end
+
+  def delete_carparks
+    Carpark.delete_all
   end
 
   def write_record_to_db(record)
