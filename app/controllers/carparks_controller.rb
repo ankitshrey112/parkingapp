@@ -17,7 +17,7 @@ class CarparksController < ApplicationController
     api_request = interaction.run(self.permitted_params.to_h.as_json.deep_symbolize_keys)
 
     if api_request.errors.present?
-      render json: { errors: api_request.errors.full_messages }, status: :bad_request
+      render json: { status: "400 Bad Request", messages: api_request.errors.full_messages }, status: :bad_request
     else
       render json: api_request.result, status: :ok
     end

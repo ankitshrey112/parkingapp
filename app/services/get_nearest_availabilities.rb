@@ -3,8 +3,12 @@ class GetNearestAvailabilities < ActiveInteraction::Base
   float :longitude
 
   def execute
-    return {
-      list: []
-    }
+    response = get_response
+    
+    return response
+  end
+
+  def get_response
+    return []
   end
 end
