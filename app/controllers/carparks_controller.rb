@@ -1,6 +1,6 @@
 class CarparksController < ApplicationController
   def health
-    render json: { status: running }, status: :ok
+    render json: { status: 'OK' }, status: :ok
   end
 
   def get_nearest_availabilities
