@@ -66,6 +66,8 @@ end
 
 gem 'active_interaction', '~> 5.3'
 
+gem 'rest-client'
+
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
