@@ -12,7 +12,7 @@ class CarparksController < ApplicationController
   # donot change below method, just add new controllers above and implement new interaction in services with same name.
   def get_service_respone(request)
     interaction = request.camelize.constantize
-    @required_params = interaction.class.inputs.keys.map(&:to_sym)
+    @required_params = interaction.new.inputs.keys.map(&:to_sym)
 
     api_request = interaction.run(self.permitted_params.to_h.as_json.deep_symbolize_keys)
 
