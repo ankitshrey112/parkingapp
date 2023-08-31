@@ -54,7 +54,14 @@ class UpdateCarparkAvailabilities < ActiveInteraction::Base
         update_datetime: record[:update_datetime]
       }
 
-      carpark_availability = CarparkAvailability.new(params)
+      carpark_availability = CarparkAvailability.find_or_initialize_by({
+        carpark_number: params[:carpark_number],
+        lot_type: params[:lot_type]
+      })
+
+      carpark_availability.total_lots = params[:total_lots]
+      carpark_availability.lots_available = params[:lots_available]
+      carpark_availability.update_datetime = params[:update_datetime]
 
       unless carpark_availability.save
         puts carpark_availability.errors.full_messages

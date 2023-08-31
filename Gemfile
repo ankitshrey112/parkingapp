@@ -70,6 +70,8 @@ gem 'rest-client'
 
 gem 'pry', '~> 0.14.2'
 
+gem 'geocoder'
+
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"

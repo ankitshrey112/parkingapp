@@ -10,6 +10,7 @@ class CreateCarparkAvailability < ActiveRecord::Migration[7.0]
       t.timestamps
 
       t.index [:carpark_number], name: 'index_carpark_availabilities_on_carpark_number'
+      t.index [:carpark_number, :lot_type], name: 'index_carpark_availabilities_on_carpark_number_lot_type'
     end
   end
 
