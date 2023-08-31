@@ -1,5 +1,5 @@
 class GetNearestAvailabilities < ActiveInteraction::Base
-  float :latitide
+  float :latitude
   float :longitude
 
   def execute
