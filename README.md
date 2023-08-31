@@ -111,6 +111,12 @@ Gems Used:
 
 4. active_interaction: gem is used for seperation of concerns and easy input validation.
 
+5. rspec: to write unit tests
+
+**Run Tests**
+
+rspec ./spec/services/get_nearest_availabilities_spec.rb
+
 
 
 
