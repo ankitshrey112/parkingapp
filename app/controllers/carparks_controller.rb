@@ -18,9 +18,9 @@ class CarparksController < ApplicationController
 
     if api_request.errors.present?
       render json: { errors: api_request.errors.full_messages }, status: :bad_request
+    else
+      render json: api_request.result, status: :ok
     end
-
-    render json: api_request.result, status: :ok
   end
 
   def permitted_params
