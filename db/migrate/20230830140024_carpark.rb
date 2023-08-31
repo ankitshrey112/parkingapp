@@ -1,6 +1,6 @@
 class Carpark < ActiveRecord::Migration[7.0]
-  def change
-    create_table :carparks, id: :uuid, default: -> { 'gen_random_uuid()' }, force: :cascade do |t|
+  def self.up
+    create_table :carparks, id: :binary, limit: 16 do |t|
       t.string :carpark_number, null: false
       t.float :latitude, null: false
       t.float :longitude, null: false
@@ -16,7 +16,11 @@ class Carpark < ActiveRecord::Migration[7.0]
       t.timestamps
 
       t.index [:carpark_number], name: 'index_carparks_on_carpark_number', unique: true
-      t.index [:latitude, :latitude], name: 'index_carparks_on_carpark_number'
+      t.index [:latitude, :latitude], name: 'index_carparks_on_carpark_lat_long'
     end
+  end
+
+  def self.down
+    drop_table :carparks
   end
 end
