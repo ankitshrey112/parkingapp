@@ -1,9 +1,11 @@
 class CarparksController < ApplicationController
   def get_nearest_availabilities
-     service_response = GetNearestAvailabilities.run(params.as_json.map(&:deep_symbolize_keys))
+    api_request = GetNearestAvailabilities.run(params.as_json.map(&:deep_symbolize_keys))
 
-     result = service_response.result
+    if api_request.errors.present?
+      render json: { errors: api_request.errors.full_messages }, status: :bad_request
+    end
 
-     render json: result, status: :ok
+    render json: api_request.result, status: :ok
   end
 end
