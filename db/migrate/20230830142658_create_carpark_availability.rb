@@ -4,13 +4,12 @@ class CreateCarparkAvailability < ActiveRecord::Migration[7.0]
       t.string :carpark_number, null: false
       t.string :lot_type
       t.integer :total_lots
-      t.integer :lots_available, null: false
+      t.integer :available_lots, null: false
       t.datetime :update_datetime
 
       t.timestamps
 
-      t.index [:carpark_number], name: 'index_carpark_availabilities_on_carpark_number'
-      t.index [:carpark_number, :lot_type], name: 'index_carpark_availabilities_on_carpark_number_lot_type'
+      t.index [:carpark_number], name: 'index_carpark_availabilities_on_carpark_number', unique: true
     end
   end
 

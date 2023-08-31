@@ -48,7 +48,7 @@ class IngestCarparkInformation < ActiveInteraction::Base
       address: record[:address].to_s,
       latitude: record[:x_coord].to_f.round(4),
       longitude: record[:y_coord].to_f.round(4),
-      carpark_type: record[:carpark_type].to_s,
+      carpark_type: record[:car_park_type].to_s,
       type_of_parking_system: record[:type_of_parking_system].to_s,
       short_term_parking: record[:short_term_parking].to_s,
       free_parking: record[:free_parking].to_s,

@@ -15,11 +15,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_30_142658) do
     t.string "carpark_number", null: false
     t.string "lot_type"
     t.integer "total_lots"
-    t.integer "lots_available", null: false
+    t.integer "available_lots", null: false
     t.datetime "update_datetime"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["carpark_number"], name: "index_carpark_availabilities_on_carpark_number"
+    t.index ["carpark_number"], name: "index_carpark_availabilities_on_carpark_number", unique: true
   end
 
   create_table "carparks", charset: "latin1", force: :cascade do |t|

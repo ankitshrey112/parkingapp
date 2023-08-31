@@ -45,27 +45,24 @@ class UpdateCarparkAvailabilities < ActiveInteraction::Base
   end
 
   def write_record_to_db(record)
-    record[:carpark_info].each do |info|
-      params = {
-        carpark_number: record[:carpark_number],
-        lot_type: info[:lot_type],
-        total_lots: info[:total_lots],
-        lots_available: info[:lots_available],
-        update_datetime: record[:update_datetime]
-      }
+    total_lots = record[:carpark_info].pluck(:total_lots).map(&:to_i).sum(0)
+    available_lots = record[:carpark_info].pluck(:lots_available).map(&:to_i).sum(0)
 
-      carpark_availability = CarparkAvailability.find_or_initialize_by({
-        carpark_number: params[:carpark_number],
-        lot_type: params[:lot_type]
-      })
+    params = {
+      carpark_number: record[:carpark_number],
+      total_lots: total_lots,
+      available_lots: available_lots,
+      update_datetime: record[:update_datetime]
+    }
 
-      carpark_availability.total_lots = params[:total_lots]
-      carpark_availability.lots_available = params[:lots_available]
-      carpark_availability.update_datetime = params[:update_datetime]
+    carpark_availability = CarparkAvailability.find_or_initialize_by({ carpark_number: params[:carpark_number] })
+    
+    carpark_availability.total_lots = params[:total_lots]
+    carpark_availability.available_lots = params[:available_lots]
+    carpark_availability.update_datetime = params[:update_datetime]
 
-      unless carpark_availability.save
-        puts carpark_availability.errors.full_messages
-      end
+    unless carpark_availability.save
+      puts carpark_availability.errors.full_messages
     end
   end
 end
