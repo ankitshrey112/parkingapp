@@ -1,4 +1,8 @@
 class CarparksController < ApplicationController
+  def health
+    render json: { status: running }, status: :ok
+  end
+
   def get_nearest_availabilities
     get_service_respone(__method__.to_s)
   end
