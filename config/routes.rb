@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  get 'api/vehicles', to: 'carparks#get_nearest_availabilities'
+  get 'carparks/nearest', to: 'carparks#get_nearest_availabilities'
 end
