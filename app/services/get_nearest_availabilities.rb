@@ -1,7 +1,7 @@
 class GetNearestAvailabilities < ActiveInteraction::Base
   float :latitude
   float :longitude
-  integer :page_limit, default: 10
+  integer :per_page, default: 10
   integer :page, default: 1
   integer :max_distance, default: 1000000000
 
@@ -20,16 +20,16 @@ class GetNearestAvailabilities < ActiveInteraction::Base
     .near([self.latitude, self.longitude], self.max_distance)
     .where.not(carpark_availabilities: { available_lots: 0 })
     .page(self.page)
-    .per(self.page_limit)
+    .per(self.per_page)
     .select('carparks.address, carparks.latitude, carparks.longitude')
   end
 
   def get_pagination_data(query)
     {
-      page: self.page,
-      total: query.total_pages,
+      current_page: self.page,
+      current_count: self.per_page
+      total_pages: query.total_pages,
       total_count: query.total_count,
-      page_limit: self.page_limit
     }
   end
 
