@@ -11,6 +11,16 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_08_30_142658) do
+  create_table "carpark_availabilities", id: { type: :binary, limit: 16 }, charset: "latin1", force: :cascade do |t|
+    t.binary "carpark_id", limit: 16, null: false
+    t.string "lot_type"
+    t.integer "total_lots"
+    t.integer "lots_available", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["carpark_id"], name: "index_carparks_on_carpark_number", unique: true
+  end
+
   create_table "carparks", id: { type: :binary, limit: 16 }, charset: "latin1", force: :cascade do |t|
     t.string "carpark_number", null: false
     t.float "latitude", null: false
