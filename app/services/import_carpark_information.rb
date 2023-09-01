@@ -17,12 +17,11 @@ class ImportCarparkInformation < ActiveInteraction::Base
     @total_lines = 0
 
     CSV.foreach(file_path, headers: true, encoding: 'iso-8859-1:utf-8') do |record|
-
-    begin
-      write_record_to_db(record)
-    rescue => error
-      puts error
-    end
+      begin
+        write_record_to_db(record)
+      rescue => error
+        puts error
+      end
 
       @total_lines += 1
       puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #{@total_lines}"
