@@ -37,9 +37,13 @@ class UpdateCarparkAvailabilities < ActiveInteraction::Base
     @total_lines = 0
 
     carparks.each do |carpark|
-      write_record_to_db(carpark)
+      begin
+        write_record_to_db(carpark)
+      rescue => error
+        puts error
+      end
+    
       @total_lines += 1
-
       puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #{@total_lines}"
     end
   end
