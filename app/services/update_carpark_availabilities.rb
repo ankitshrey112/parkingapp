@@ -52,8 +52,11 @@ class UpdateCarparkAvailabilities < ActiveInteraction::Base
     total_lots = record[:carpark_info].pluck(:total_lots).map(&:to_i).sum(0)
     available_lots = record[:carpark_info].pluck(:lots_available).map(&:to_i).sum(0)
 
+    carpark_number = record[:carpark_number].present? ? record[:carpark_number].to_s : nil
+    available_lots = Integer(available_lots) rescue nil
+
     params = {
-      carpark_number: record[:carpark_number],
+      carpark_number: carpark_number,
       total_lots: total_lots,
       available_lots: available_lots,
       update_datetime: record[:update_datetime]

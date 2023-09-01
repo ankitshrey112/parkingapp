@@ -47,11 +47,15 @@ class ImportCarparkInformation < ActiveInteraction::Base
   end
 
   def get_create_params(record)
+    carpark_number = record[:car_park_no].present? ? record[:car_park_no].to_s : nil
+    latitude = Float(record[:x_coord]).round(4) rescue nil
+    longitude = Float(record[:y_coord]).round(4) rescue nil
+
     {
-      carpark_number: record[:car_park_no].to_s,
+      carpark_number: carpark_number,
       address: record[:address].to_s,
-      latitude: record[:x_coord].to_f.round(4),
-      longitude: record[:y_coord].to_f.round(4),
+      latitude: latitude,
+      longitude: longitude,
       carpark_type: record[:car_park_type].to_s,
       type_of_parking_system: record[:type_of_parking_system].to_s,
       short_term_parking: record[:short_term_parking].to_s,
