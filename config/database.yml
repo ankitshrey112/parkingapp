@@ -2,8 +2,8 @@ default: &default
   adapter: mysql2
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: 0.0.0.0
-  port: 3307
+  host: db
+  #port: 3307
   socket: /var/run/mysqld/mysqld.sock
   database: parking-db
   username: user
