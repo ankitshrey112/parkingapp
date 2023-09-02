@@ -29,6 +29,7 @@ class UpdateCarparkAvailabilities < ActiveInteraction::Base
     end
 
     return response
+    
   end
 
   def write_records_to_db(response)
