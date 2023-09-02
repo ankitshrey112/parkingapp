@@ -30,44 +30,15 @@ The "Ruby on Rails Carpark Availability API" is a robust web application built u
 **Setup Instructions**
 
 
-1. Install Homebrew (if not already installed):
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+1. ./deploy-app.sh: Starts MySQL server(if not already running) and restarts rails application server on seperate containers
 
-2. Install GPG (if not already installed):
-	brew install gpg
+2. ./import-carpark-information.sh: Imports carparks information from the carparks information HBD dataset already included as csv file in tmp directory.
 
-3. Install RVM:
-	\curl -sSL https://get.rvm.io | bash -s stable
+3. ./update_carpark_availability.sh: Updates carpark availability with latest availability information fetched from HBD API.
 
-4. Install Ruby 3.0.0:
-	rvm install 3.0.0
+4. Access the API: http://localhost:3000/carparks/nearest?latitude=1.37326&longitude=103.897&page=1&per_page=10
 
-5. Set Ruby 3.0.0 as the default:
-	rvm use 3.0.0 --default
-
-6. Install MySQL using Homebrew:
-	brew install mysql
-
-7. Start MySQL database server on docker:
-	docker compose up --build
-
-8. Install required gems:
-	bundle install
-
-9. Run database migrations:
-	rails db:migrate
-
-10. Import carparks static information from csv already included in tmp file:
-	rake load:import_carparks_information
-
-11. Updates latest carpark availability from Carpark Availability API:
-	rake load:update_carpark_availabilities
-
-12. Start rails server on localhost 3000:
-	rails server
-
-13.	Access the API:
-	Make API requests to http://localhost:3000/carparks/nearest?latitude=1.37326&longitude=103.897&page=1&per_page=10
+5. (Optional) ./run-tests.sh: Run Rspec tests. 
 
 
 **Approach**
@@ -112,15 +83,3 @@ Gems Used:
 4. active_interaction: gem is used for seperation of concerns and easy input validation.
 
 5. rspec: to write unit tests
-
-**Run Tests**
-
-rspec ./spec/services/get_nearest_availabilities_spec.rb
-
-
-
-
-
-
-
-
