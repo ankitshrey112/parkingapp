@@ -1,10 +1,11 @@
 require 'csv'
+require 'svy21'
 
 class ImportCarparkInformation < ActiveInteraction::Base
   def execute
-    write_records_to_db
-
     deactive_records
+
+    write_records_to_db
 
     return {
       records_read: @total_lines
@@ -24,7 +25,7 @@ class ImportCarparkInformation < ActiveInteraction::Base
       end
 
       @total_lines += 1
-      puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #{@total_lines}"
+      puts " >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #{@total_lines}"
     end
   end
 
@@ -32,13 +33,16 @@ class ImportCarparkInformation < ActiveInteraction::Base
     record = record.to_h.deep_symbolize_keys
 
     carpark_number = record[:car_park_no].present? ? record[:car_park_no].to_s : nil
-    svy21_easting = Float(record[:x_coord]).round(4) rescue nil
-    svy21_northing = Float(record[:y_coord]).round(4) rescue nil
+    svy21_easting = Float(record[:x_coord]) rescue nil
+    svy21_northing = Float(record[:y_coord]) rescue nil
 
     if svy21_easting.present? && svy21_northing.present?
-      result = Geocoder::Calculations.svy21_to_latlng(svy21_easting, svy21_northing)
+      lat_lon = SVY21.svy21_to_lat_lon(svy21_easting, svy21_northing)
 
-      latitude, longitude = result[0], result[1]
+      latitude = lat_lon[0].round(6)
+      longitude = lat_lon[1].round(6)
+
+      print svy21_easting, ' ', svy21_northing, '->', latitude, ' ', longitude
     end
 
     carpark = Carpark.find_or_initialize_by({ carpark_number: carpark_number })
@@ -55,8 +59,6 @@ class ImportCarparkInformation < ActiveInteraction::Base
     carpark.car_park_basement = record[:car_park_basement].to_s
     carpark.address = record[:address].to_s
     carpark.status = 'active'
-
-    return unless carpark.changed?
 
     unless carpark.save
       puts carpark.errors.full_messages

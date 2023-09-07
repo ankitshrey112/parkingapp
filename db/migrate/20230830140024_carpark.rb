@@ -3,8 +3,8 @@ class Carpark < ActiveRecord::Migration[7.0]
     create_table :carparks do |t|
       t.string :carpark_number, null: false
       t.string :address
-      t.decimal :latitude, null: false, precision: 10, scale: 4
-      t.decimal :longitude, null: false, precision: 10, scale: 4
+      t.decimal :latitude, null: false, precision: 10, scale: 6
+      t.decimal :longitude, null: false, precision: 10, scale: 6
       t.string :carpark_type
       t.string :type_of_parking_system
       t.string :short_term_parking

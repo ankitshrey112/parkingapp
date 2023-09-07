@@ -24,7 +24,7 @@ class CarparksController < ApplicationController
     if api_request.errors.present?
       render json: { status: BAD_REQUEST, messages: api_request.errors.full_messages }, status: :bad_request
     else
-      render json: api_request.result, serializer: serializer_class, status: :ok
+      render json: api_request.result, status: :ok
     end
   end
 
