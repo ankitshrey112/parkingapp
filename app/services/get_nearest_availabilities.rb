@@ -52,6 +52,5 @@ class GetNearestAvailabilities < ActiveInteraction::Base
       :distance
     ]).each {|t| t['distance'] = t['distance'].round(2)}
     .map(&:deep_symbolize_keys)
-    ])
   end
 end
