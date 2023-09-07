@@ -9,7 +9,7 @@ class ImportCarparkInformation < ActiveInteraction::Base
     file_path = self.get_file_path
 
     if file_path[:error].present?
-      self.errors.add(base: response[:error])
+      self.errors.add(:base, response[:error])
       return
     end
 
@@ -22,8 +22,7 @@ class ImportCarparkInformation < ActiveInteraction::Base
   end
 
   def write_records_to_db(file_path)
-    file = URI.open(file_path[:url]).read
-
+    file = URI.open(file_path['url']).read
     @total_lines = 0
 
     CSV.parse(file, headers: true) do |record|
