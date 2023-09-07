@@ -19,8 +19,6 @@ class CarparksController < ApplicationController
 
     api_request = interaction.run(self.permitted_params.to_h.as_json.deep_symbolize_keys)
 
-    serializer_class = "#{request}_serializer".camelize.constantize
-
     if api_request.errors.present?
       render json: { status: BAD_REQUEST, messages: api_request.errors.full_messages }, status: :bad_request
     else

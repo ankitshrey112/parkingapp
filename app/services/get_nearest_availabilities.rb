@@ -50,6 +50,8 @@ class GetNearestAvailabilities < ActiveInteraction::Base
       :total_lots,
       :available_lots,
       :distance
+    ]).each {|t| t['distance'] = t['distance'].round(2)}
+    .map(&:deep_symbolize_keys)
     ])
   end
 end
