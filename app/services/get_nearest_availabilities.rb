@@ -18,6 +18,7 @@ class GetNearestAvailabilities < ActiveInteraction::Base
     Carpark
     .joins(:availability)
     .near([self.latitude, self.longitude], self.max_distance)
+    .where(carparks: { status: 'active' }, carpark_availabilities: { status: 'active' })
     .where.not(carpark_availabilities: { available_lots: 0 })
     .page(self.page)
     .per(self.per_page)
@@ -49,7 +50,6 @@ class GetNearestAvailabilities < ActiveInteraction::Base
       :total_lots,
       :available_lots,
       :distance
-    ]).each {|t| t['distance'] = t['distance'].round(2)}
-    .map(&:deep_symbolize_keys)
+    ])
   end
 end

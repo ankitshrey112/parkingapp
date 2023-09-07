@@ -4,6 +4,8 @@ class ImportCarparkInformation < ActiveInteraction::Base
   def execute
     write_records_to_db
 
+    deactive_records
+
     return {
       records_read: @total_lines
     }
@@ -30,8 +32,14 @@ class ImportCarparkInformation < ActiveInteraction::Base
     record = record.to_h.deep_symbolize_keys
 
     carpark_number = record[:car_park_no].present? ? record[:car_park_no].to_s : nil
-    latitude = Float(record[:x_coord]).round(4) rescue nil
-    longitude = Float(record[:y_coord]).round(4) rescue nil
+    svy21_easting = Float(record[:x_coord]).round(4) rescue nil
+    svy21_northing = Float(record[:y_coord]).round(4) rescue nil
+
+    if svy21_easting.present? && svy21_northing.present?
+      result = Geocoder::Calculations.svy21_to_latlng(svy21_easting, svy21_northing)
+
+      latitude, longitude = result[0], result[1]
+    end
 
     carpark = Carpark.find_or_initialize_by({ carpark_number: carpark_number })
 
@@ -46,12 +54,17 @@ class ImportCarparkInformation < ActiveInteraction::Base
     carpark.gantry_height = record[:gantry_height].to_f.round(4)
     carpark.car_park_basement = record[:car_park_basement].to_s
     carpark.address = record[:address].to_s
+    carpark.status = 'active'
 
     return unless carpark.changed?
 
     unless carpark.save
       puts carpark.errors.full_messages
     end
+  end
+
+  def deactive_records
+    Carpark.update_all(status: 'inactive')
   end
 
   def get_file_path
