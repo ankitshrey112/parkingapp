@@ -168,6 +168,10 @@ GEM
       racc (~> 1.4)
     nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
+    open-uri (0.3.0)
+      stringio
+      time
+      uri
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -254,6 +258,8 @@ GEM
     stringio (3.0.8)
     svy21 (1.0.1)
     thor (1.2.2)
+    time (0.2.2)
+      date
     timeout (0.4.0)
     turbo-rails (1.4.0)
       actionpack (>= 6.0.0)
@@ -264,6 +270,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8.2)
+    uri (0.12.2)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -297,6 +304,7 @@ DEPENDENCIES
   jbuilder
   kaminari
   mysql2 (~> 0.5)
+  open-uri
   pry (~> 0.14.2)
   puma (~> 5.0)
   rails (~> 7.0.3, >= 7.0.3.1)

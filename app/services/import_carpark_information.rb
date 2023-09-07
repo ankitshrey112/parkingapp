@@ -1,23 +1,32 @@
 require 'csv'
 require 'svy21'
+require 'open-uri'
+
+FILE_PATH_RESOURCE = 'https://kjo15bc7zd.execute-api.ap-southeast-1.amazonaws.com/api/public/resources/d_23f946fa557947f93a8043bbef41dd09/generate-download-link'
 
 class ImportCarparkInformation < ActiveInteraction::Base
   def execute
-    deactive_records
+    file_path = self.get_file_path
 
-    write_records_to_db
+    if file_path[:error].present?
+      self.errors.add(base: response[:error])
+      return
+    end
+
+    deactive_records
+    write_records_to_db(file_path)
 
     return {
       records_read: @total_lines
     }
   end
 
-  def write_records_to_db
-    file_path = self.get_file_path
+  def write_records_to_db(file_path)
+    file = URI.open(file_path[:url]).read
 
     @total_lines = 0
 
-    CSV.foreach(file_path, headers: true, encoding: 'iso-8859-1:utf-8') do |record|
+    CSV.parse(file, headers: true) do |record|
       begin
         write_record_to_db(record)
       rescue => error
@@ -70,6 +79,15 @@ class ImportCarparkInformation < ActiveInteraction::Base
   end
 
   def get_file_path
-    Rails.root.join('tmp', "carpark_information.csv")
+    begin
+      api_response = RestClient.post(FILE_PATH_RESOURCE, '{}', {})
+      response = JSON.parse(api_response.body) if api_response.code == 201
+    rescue => e
+      response = {
+        error: { errMsg: e }
+      }
+    end
+
+    return response
   end
 end
