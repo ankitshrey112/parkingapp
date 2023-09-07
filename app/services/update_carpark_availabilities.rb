@@ -11,6 +11,8 @@ class UpdateCarparkAvailabilities < ActiveInteraction::Base
       return
     end
 
+    deactive_records
+
     write_records_to_db(response)
 
     return {
@@ -49,6 +51,10 @@ class UpdateCarparkAvailabilities < ActiveInteraction::Base
     end
   end
 
+  def deactive_records
+    CarparkAvailability.update_all(status: 'inactive')
+  end
+
   def write_record_to_db(record)
     total_lots = record[:carpark_info].pluck(:total_lots).map(&:to_i).sum(0)
     available_lots = record[:carpark_info].pluck(:lots_available).map(&:to_i).sum(0)
@@ -68,6 +74,7 @@ class UpdateCarparkAvailabilities < ActiveInteraction::Base
     carpark_availability.total_lots = params[:total_lots]
     carpark_availability.available_lots = params[:available_lots]
     carpark_availability.update_datetime = params[:update_datetime]
+    carpark_availability.status = 'active'
 
     unless carpark_availability.save
       puts carpark_availability.errors.full_messages

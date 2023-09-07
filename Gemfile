@@ -76,6 +76,12 @@ gem 'kaminari'
 
 gem 'rspec-rails'
 
+gem "svy21", "~> 1.0.1"
+
+gem 'active_model_serializers', '~> 0.10.0'
+
+gem 'open-uri'
+
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"

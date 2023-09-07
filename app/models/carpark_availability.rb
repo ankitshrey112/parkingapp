@@ -4,4 +4,6 @@ class CarparkAvailability < ApplicationRecord
   validates_presence_of :carpark_number, :available_lots
 
   validates_uniqueness_of :carpark_number
+
+  validates :status, inclusion: { in: ['active', 'inactive'] }
 end
