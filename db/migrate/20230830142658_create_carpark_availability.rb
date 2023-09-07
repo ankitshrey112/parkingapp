@@ -12,9 +12,9 @@ class CreateCarparkAvailability < ActiveRecord::Migration[7.0]
 
       t.index [:carpark_number], name: 'index_carpark_availabilities_on_carpark_number', unique: true
       t.index [:available_lots, :status], name: 'index_carpark_availabilities_on_available_lots_status'
-
-      add_foreign_key :carpark_availabilities, :carparks, column: :carpark_number, primary_key: :carpark_number
     end
+
+    add_foreign_key :carpark_availabilities, :carparks, column: :carpark_number, primary_key: :carpark_number
 
     execute "ALTER TABLE carpark_availabilities ADD CONSTRAINT status_check CHECK (status IN ('active', 'inactive'))"
   end
